@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download - FileBridge</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <a href="/" class="btn-home" title="Voltar para início">
+                <img src="home.png" alt="Home" width="22" height="22">
+            </a>
+            <div class="header-text">
+                <h1>🌉 FileBridge</h1>
+                <p class="subtitle">Baixe seu arquivo</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        
+        <!-- Loading State -->
+        <section class="download-section" id="loadingSection">
+            <div class="card text-center">
+                <h2>🔍 Buscando arquivo...</h2>
+                <p>Aguarde um momento</p>
+            </div>
+        </section>
+
+        <!-- Error State -->
+        <section class="download-section" id="errorSection" style="display: none;">
+            <div class="card text-center">
+                <h2>❌ Arquivo não encontrado</h2>
+                <p>O link pode estar incorreto ou o arquivo foi removido.</p>
+                <a href="index.html" class="btn-secondary" style="display: inline-block; margin-top: 1rem; text-decoration: none;">
+                    ← Voltar para a página inicial
+                </a>
+            </div>
+        </section>
+
+        <!-- Download State -->
+        <section class="download-section" id="downloadSection" style="display: none;">
+            <div class="card">
+                <div class="download-info">
+                    <div class="file-icon">📄</div>
+                    <h2 id="fileName">Nome do arquivo</h2>
+                    <p class="file-meta">
+                        <span id="fileSize">Tamanho</span>
+                    </p>
+                </div>
+
+                <button class="btn-download-large" id="downloadBtn">
+                    ⬇️ Baixar Arquivo
+                </button>
+
+                <div class="download-tip">
+                    <p>💡 <strong>Dica:</strong> O arquivo será baixado com qualidade original, sem compressão.</p>
+                </div>
+
+                <a href="index.html" class="back-link">← Enviar outro arquivo</a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>Desenvolvido por <strong>Seu Nome</strong> - Projeto de Portfólio</p>
+            <p class="tech-stack">Python • FastAPI • Supabase • HTML/CSS/JS</p>
+        </div>
+    </footer>
+
+    <script>
+        // Configuração
+        const API_URL = 'http://localhost:8000';
+
+        // Elementos
+        const loadingSection = document.getElementById('loadingSection');
+        const errorSection = document.getElementById('errorSection');
+        const downloadSection = document.getElementById('downloadSection');
+        const fileName = document.getElementById('fileName');
+        const fileSize = document.getElementById('fileSize');
+        const downloadBtn = document.getElementById('downloadBtn');
+
+        // Pega o file_id da URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const fileId = urlParams.get('id');
+
+        // Carrega informações do arquivo
+        async function loadFileInfo() {
+            if (!fileId) {
+                showError();
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}/download/${fileId}`);
+                
+                if (!response.ok) {
+                    throw new Error('Arquivo não encontrado');
+                }
+
+                const data = await response.json();
+                
+                // Mostra informações
+                fileName.textContent = data.filename;
+                fileSize.textContent = formatFileSize(data.size);
+                
+                // Configura botão de download
+                
+                downloadBtn.onclick = async () => {
+                    try {
+                        downloadBtn.textContent = '⏳ Preparando download...';
+        
+                        // Baixa o arquivo como blob (força download)
+                        const response = await fetch(data.download_url);
+                        const blob = await response.blob();
+        
+                        // Cria link temporário e força download
+                        const url = window.URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = data.filename;
+                        document.body.appendChild(a);
+                        a.click();
+                        document.body.removeChild(a);
+                        window.URL.revokeObjectURL(url);
+        
+                        // Feedback visual
+                        downloadBtn.textContent = '✅ Download iniciado!';
+                        downloadBtn.style.background = '#10b981';
+        
+                        setTimeout(() => {
+                            downloadBtn.innerHTML = '⬇️ Baixar Arquivo';
+                            downloadBtn.style.background = '';
+                        }, 3000);
+        
+                    } catch (error) {
+                        console.error('Erro no download:', error);
+                        downloadBtn.textContent = '❌ Erro no download';
+                    }
+                };
+                
+                // Mostra seção de download
+                loadingSection.style.display = 'none';
+                downloadSection.style.display = 'block';
+                
+            } catch (error) {
+                console.error('Erro ao carregar arquivo:', error);
+                showError();
+            }
+        }
+
+        function showError() {
+            loadingSection.style.display = 'none';
+            errorSection.style.display = 'block';
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0 || bytes === 'unknown') return 'Tamanho desconhecido';
+            
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            
+            return Math.round((bytes / Math.pow(k, i)) * 100) / 100 + ' ' + sizes[i];
+        }
+
+        // Carrega ao abrir a página
+        loadFileInfo();
+    </script>
+
+    <style>
+        .download-section {
+            margin-top: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .download-info {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .file-icon {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+        }
+
+        .download-info h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            word-break: break-word;
+        }
+
+        .file-meta {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .btn-download-large {
+            width: 100%;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 1.25rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-download-large:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-download-large:active {
+            transform: translateY(0);
+        }
+
+        .download-tip {
+            background: var(--bg-secondary);
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            border-left: 4px solid var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .download-tip p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin-top: 1rem;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: var(--primary);
+        }
+
+        .header-content {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header-text {
+            text-align: center;
+        }
+
+        .btn-home {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.2);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .btn-home png {
+            width: 22px;
+            height: 22px;
+        }
+
+        .btn-home img {
+            filter: brightness(0) invert(1);
+        }
+
+        .btn-home:hover {
+            background: rgba(255,255,255,0.35);
+        }
+
+        @media (max-width: 768px) {
+            .btn-home {
+                font-size: 0.8rem;
+                padding: 0.4rem 0.7rem;
+            }
+        }
+    </style>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FileBridge - Transferência de Arquivos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <h1>🌉 FileBridge</h1>
+            <p class="subtitle">Transfira arquivos do celular pro PC sem perder qualidade</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        
+        <!-- Upload Section -->
+        <section class="upload-section">
+            <div class="card">
+                <h2>📤 Enviar Arquivo</h2>
+                
+                <div class="upload-area" id="uploadArea">
+                    <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="17 8 12 3 7 8"></polyline>
+                        <line x1="12" y1="3" x2="12" y2="15"></line>
+                    </svg>
+                    <p>Clique ou arraste um arquivo aqui</p>
+                    <p class="hint">Fotos, PDFs, vídeos, documentos...</p>
+                    <input type="file" id="fileInput" hidden>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="progress-container" id="progressContainer" style="display: none;">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <p class="progress-text" id="progressText">Enviando...</p>
+                </div>
+
+                <!-- Success Message -->
+                <div class="success-message" id="successMessage" style="display: none;">
+                    <h3>✅ Arquivo enviado com sucesso!</h3>
+                    <div class="file-info">
+                        <p><strong>Nome:</strong> <span id="uploadedFileName"></span></p>
+                        <p><strong>Tamanho:</strong> <span id="uploadedFileSize"></span></p>
+                    </div>
+                    <div class="link-container">
+                        <p class="link-label">Link para download:</p>
+                        <div class="link-box">
+                            <input type="text" id="downloadLink" readonly>
+                            <button class="copy-btn" id="copyBtn">📋 Copiar</button>
+                        </div>
+                        <p class="hint">Compartilhe este link para baixar o arquivo em qualquer dispositivo</p>
+                    </div>
+                    <button class="btn-secondary" id="uploadAnotherBtn">Enviar outro arquivo</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Files List Section -->
+        <section class="files-section">
+            <div class="card">
+                <div class="section-header">
+                    <h2>📁 Arquivos Enviados</h2>
+                    <button class="btn-refresh" id="refreshBtn">🔄 Atualizar</button>
+                </div>
+                
+                <div id="filesList" class="files-list">
+                    <p class="loading">Carregando arquivos...</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>Desenvolvido por <strong>Seu Nome</strong> - Projeto de Portfólio</p>
+            <p class="tech-stack">Python • FastAPI • Supabase • HTML/CSS/JS</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

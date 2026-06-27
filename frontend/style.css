@@ -1,0 +1,563 @@
+/* ========================
+   Reset e Variáveis
+   ======================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Cores principais */
+    --primary: #6366f1;
+    --primary-dark: #4f46e5;
+    --success: #10b981;
+    --error: #ef4444;
+    --warning: #f59e0b;
+    
+    /* Cores neutras */
+    --bg-primary: #ffffff;
+    --bg-secondary: #f9fafb;
+    --bg-tertiary: #f3f4f6;
+    --text-primary: #111827;
+    --text-secondary: #6b7280;
+    --border: #e5e7eb;
+    
+    /* Sombras */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+    
+    /* Espaçamentos */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
+    
+    /* Border radius */
+    --radius-sm: 0.375rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 1rem;
+}
+
+/* ========================
+   Tipografia Base
+   ======================== */
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--text-primary);
+    background: var(--bg-secondary);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+h1, h2, h3 {
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+h1 {
+    font-size: 2rem;
+}
+
+h2 {
+    font-size: 1.5rem;
+    margin-bottom: var(--spacing-md);
+}
+
+h3 {
+    font-size: 1.25rem;
+}
+
+/* ========================
+   Layout
+   ======================== */
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+    width: 100%;
+}
+
+header {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: white;
+    padding: var(--spacing-xl) 0;
+    text-align: center;
+    box-shadow: var(--shadow-md);
+}
+
+header h1 {
+    margin-bottom: var(--spacing-xs);
+}
+
+header .subtitle {
+    opacity: 0.9;
+    font-size: 1.1rem;
+}
+
+main {
+    flex: 1;
+    padding: var(--spacing-xl) 0;
+}
+
+footer {
+    background: var(--bg-primary);
+    border-top: 1px solid var(--border);
+    padding: var(--spacing-lg) 0;
+    text-align: center;
+    color: var(--text-secondary);
+}
+
+footer p {
+    margin-bottom: var(--spacing-xs);
+}
+
+footer .tech-stack {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* ========================
+   Cards
+   ======================== */
+
+.card {
+    background: var(--bg-primary);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: var(--spacing-lg);
+}
+
+/* ========================
+   Upload Area
+   ======================== */
+
+.upload-section {
+    margin-bottom: var(--spacing-lg);
+}
+
+.upload-area {
+    border: 2px dashed var(--border);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-xl);
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    background: var(--bg-secondary);
+}
+
+.upload-area:hover {
+    border-color: var(--primary);
+    background: var(--bg-tertiary);
+}
+
+.upload-area.drag-over {
+    border-color: var(--primary);
+    background: var(--primary);
+    background-opacity: 0.1;
+    transform: scale(1.02);
+}
+
+.upload-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto var(--spacing-md);
+    color: var(--primary);
+}
+
+.upload-area p {
+    margin-bottom: var(--spacing-xs);
+    color: var(--text-primary);
+    font-size: 1.1rem;
+}
+
+.upload-area .hint {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+/* ========================
+   Progress Bar
+   ======================== */
+
+.progress-container {
+    margin-top: var(--spacing-md);
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    margin-bottom: var(--spacing-sm);
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+    transition: width 0.3s ease;
+    width: 0%;
+}
+
+.progress-text {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+/* ========================
+   Success Message
+   ======================== */
+
+.success-message {
+    text-align: center;
+    animation: fadeIn 0.5s ease;
+}
+
+.success-message h3 {
+    color: var(--success);
+    margin-bottom: var(--spacing-md);
+}
+
+.file-info {
+    background: var(--bg-secondary);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--spacing-md);
+    text-align: left;
+}
+
+.file-info p {
+    margin-bottom: var(--spacing-xs);
+}
+
+.link-container {
+    margin-top: var(--spacing-md);
+}
+
+.link-label {
+    font-weight: 600;
+    margin-bottom: var(--spacing-sm);
+    color: var(--text-primary);
+}
+
+.link-box {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
+}
+
+.link-box input {
+    flex: 1;
+    padding: var(--spacing-sm);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    background: var(--bg-tertiary);
+}
+
+/* ========================
+   Buttons
+   ======================== */
+
+.copy-btn,
+.btn-secondary,
+.btn-refresh {
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: none;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.95rem;
+}
+
+.copy-btn {
+    background: var(--primary);
+    color: white;
+}
+
+.copy-btn:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-secondary {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    margin-top: var(--spacing-md);
+}
+
+.btn-secondary:hover {
+    background: var(--border);
+}
+
+.btn-refresh {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    padding: var(--spacing-xs) var(--spacing-md);
+    font-size: 0.9rem;
+}
+
+.btn-refresh:hover {
+    background: var(--bg-tertiary);
+}
+
+/* ========================
+   Files List
+   ======================== */
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-md);
+}
+
+.files-list {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.file-item {
+    background: var(--bg-secondary);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--spacing-sm);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.2s ease;
+}
+
+.file-item:hover {
+    background: var(--bg-tertiary);
+    transform: translateX(4px);
+}
+
+.file-item-info {
+    flex: 1;
+}
+
+.file-item-name {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+    word-break: break-word;
+}
+
+.file-item-meta {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.file-item-actions {
+    display: flex;
+    gap: var(--spacing-xs);
+}
+
+.btn-download {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.btn-download:hover {
+    background: var(--primary-dark);
+    transform: scale(1.05);
+}
+
+.loading {
+    text-align: center;
+    color: var(--text-secondary);
+    padding: var(--spacing-lg);
+}
+
+.empty-state {
+    text-align: center;
+    padding: var(--spacing-xl);
+    color: var(--text-secondary);
+}
+
+.empty-state svg {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto var(--spacing-md);
+    opacity: 0.3;
+}
+
+/* ========================
+   Animations
+   ======================== */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.loading::after {
+    content: "⏳";
+    animation: spin 1s linear infinite;
+    display: inline-block;
+    margin-left: var(--spacing-xs);
+}
+
+/* ========================
+   Responsive
+   ======================== */
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+    
+    h2 {
+        font-size: 1.2rem;
+    }
+    
+    .container {
+        padding: 0 var(--spacing-sm);
+    }
+    
+    header {
+        padding: var(--spacing-md) 0;
+    }
+    
+    .card {
+        padding: var(--spacing-md);
+        border-radius: var(--radius-md);
+    }
+    
+    .upload-area {
+        padding: var(--spacing-md);
+    }
+    
+    .upload-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .upload-area p {
+        font-size: 1rem;
+    }
+    
+    .link-box {
+        flex-direction: column;
+    }
+
+    .link-box input {
+        width: 100%;
+        font-size: 0.85rem;
+    }
+
+    .copy-btn {
+        width: 100%;
+        text-align: center;
+    }
+    
+    /* Seção header (título + botão atualizar) */
+    .section-header {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: var(--spacing-xs);
+        margin-bottom: var(--spacing-sm);
+    }
+
+    .section-header h2 {
+        margin-bottom: 0;
+    }
+    
+    /* Itens da lista */
+    .file-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-xs);
+        padding: var(--spacing-sm);
+    }
+
+    .file-item-info {
+        width: 100%;
+    }
+
+    .file-item-name {
+        font-size: 0.95rem;
+        word-break: break-word;
+    }
+
+    .file-item-meta {
+        font-size: 0.8rem;
+    }
+    
+    .file-item-actions {
+        width: 100%;
+        margin-top: var(--spacing-xs);
+    }
+    
+    .btn-download {
+        width: 100%;
+        text-align: center;
+        padding: var(--spacing-sm);
+        font-size: 0.95rem;
+    }
+
+    main {
+        padding: var(--spacing-md) 0;
+    }
+
+    footer {
+        padding: var(--spacing-md) 0;
+        font-size: 0.85rem;
+    }
+}
+
+/* ========================
+   Utility Classes
+   ======================== */
+
+.text-center {
+    text-align: center;
+}
+
+.mt-1 {
+    margin-top: var(--spacing-sm);
+}
+
+.mb-1 {
+    margin-bottom: var(--spacing-sm);
+}
+
+.hidden {
+    display: none !important;
+}
