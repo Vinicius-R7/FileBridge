@@ -2,7 +2,7 @@
 // Configuração
 // ========================
 
-const API_URL = 'http://localhost:8000'; // Mude para a URL do Render em produção
+const API_URL = 'https://filebridge-api.onrender.com';
 
 // ========================
 // Elementos do DOM
