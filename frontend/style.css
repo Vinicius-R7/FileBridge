@@ -542,6 +542,31 @@ footer .tech-stack {
     }
 }
 
+.footer-links {
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: center;
+    margin: var(--spacing-sm) 0;
+}
+
+.footer-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.2s, transform 0.2s;
+    display: flex;
+    align-items: center;
+}
+
+.footer-links a svg {
+    width: 22px;
+    height: 22px;
+}
+
+.footer-links a:hover {
+    color: var(--primary);
+    transform: translateY(-2px);
+}
+
 /* ========================
    Utility Classes
    ======================== */
